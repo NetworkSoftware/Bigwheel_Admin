@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">BIGWHEEL ADMIN</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_setting">Settings</string>
+    <string name="toolbar_title">Stocks</string>
+    <string name="action_search">Search</string>
+    <string name="search_hint">Type name…</string>
+    <string name="hint_pet_name">BIGWHEEL</string>
+    <string name="hint_imei_name">IMEI Number</string>
+
+    <string name="hint_price">Price</string>
+    <string name="category_model">Model</string>
+    //login
+    <string name="submit">SUBMIT</string>
+    //navBar
+    <string name="stock">Stock</string>
+    <string name="banner">Banner</string>
+    <string name="order">Orders</string>
+    <string name="categories">Categories</string>
+    <string name="image_provider">pro.network.indiaonlineadmin.provider</string>
+
+</resources>
