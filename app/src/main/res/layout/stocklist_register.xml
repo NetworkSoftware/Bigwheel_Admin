@@ -74,7 +74,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:hint="Product Name"
+                android:hint="Sub Category"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText

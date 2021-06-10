@@ -1,9 +1,11 @@
 package pro.network.bringwheeladmin.deliveryboy;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,14 +31,17 @@ import java.util.Map;
 import pro.network.bringwheeladmin.R;
 import pro.network.bringwheeladmin.app.AppController;
 import pro.network.bringwheeladmin.app.Appconfig;
+import pro.network.bringwheeladmin.categories.MainActivityCategories;
+import pro.network.bringwheeladmin.shop.MainActivityProduct;
+import pro.network.bringwheeladmin.shop.StockRegister;
 
 import static pro.network.bringwheeladmin.app.Appconfig.DELIVERY_BOY_CHANGE_STATUS;
 import static pro.network.bringwheeladmin.app.Appconfig.DELIVERY_GET_ALL;
-import static pro.network.bringwheeladmin.app.Appconfig.ORDER_CHANGE_STATUS;
 
 public class MainActivityDelivery extends AppCompatActivity {
     private static final String TAG = MainActivityDelivery.class.getSimpleName();
     ProgressDialog progressDialog;
+    FloatingActionButton addDelivery;
     private RecyclerView recyclerView;
     private List<DeliveryBean> deliveryBeans;
     private DeliveryAdapter deliveryAdapter;
@@ -57,16 +63,37 @@ public class MainActivityDelivery extends AppCompatActivity {
         deliveryAdapter = new DeliveryAdapter(this, deliveryBeans, new OnDeliveryBoy() {
             @Override
             public void onStatusClick(int position, String status) {
-                statusChange(deliveryBeans.get(position).getId(),status);
+                statusChange(deliveryBeans.get(position).getId(), status);
+            }
+
+            @Override
+            public void onEditClick(DeliveryBean deliveryBeans) {
+                Intent intent = new Intent(MainActivityDelivery.this, CreateDeliveryBoy.class);
+                intent.putExtra("data", deliveryBeans);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDeleteClick(int position) {
+                deleteFile(position);
             }
         });
-
+        addDelivery = findViewById(R.id.addDelivery);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         final LinearLayoutManager addManager1 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(addManager1);
         recyclerView.setAdapter(deliveryAdapter);
+
+        addDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivityDelivery.this, CreateDeliveryBoy.class);
+                startActivity(intent);
+            }
+        });
+
 
         fetchContacts();
     }
@@ -202,5 +229,51 @@ public class MainActivityDelivery extends AppCompatActivity {
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
+
+    private void deleteFile(final int position) {
+        String tag_string_req = "req_register";
+        progressDialog.setMessage("Fetching ...");
+        showDialog();
+        // showDialog();
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                Appconfig.DELETE_DELIVERYBOY, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d("Register Response: ", response);
+                hideDialog();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    if (jObj.getBoolean("success")) {
+                        deliveryBeans.remove(position);
+                        deliveryAdapter.notifyData(deliveryBeans);
+                    }
+                    Toast.makeText(MainActivityDelivery.this, jObj.getString("message"), Toast.LENGTH_SHORT).show();
+                } catch (JSONException e) {
+                    Log.e("xxxxxxxxxxx", e.toString());
+                    Toast.makeText(MainActivityDelivery.this, "Some Network Error.Try after some time", Toast.LENGTH_SHORT).show();
+
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Registration Error: ", error.getMessage());
+                Toast.makeText(MainActivityDelivery.this,
+                        "Some Network Error.Try after some time", Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        }) {
+            protected Map<String, String> getParams() {
+                HashMap localHashMap = new HashMap();
+                localHashMap.put("id", deliveryBeans.get(position).id);
+                return localHashMap;
+            }
+        };
+        strReq.setRetryPolicy(Appconfig.getPolicy());
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 
 }

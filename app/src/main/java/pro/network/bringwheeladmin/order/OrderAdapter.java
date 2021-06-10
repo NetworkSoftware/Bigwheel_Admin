@@ -114,6 +114,12 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
                 statusListener.assignDboy(order);
             }
         });
+        holder.trackOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                statusListener.onTrackOrder(order.id);
+            }
+        });
     }
 
     @Override
@@ -172,7 +178,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView name, price, status, quantity, orderedOn, dboy;
-        MaterialButton deliveredBtn, whatsapp, call, cancalOrder, assignDboy;
+        MaterialButton deliveredBtn, whatsapp, call, cancalOrder, assignDboy,trackOrder;
         LinearLayout itemShow;
 
         public MyViewHolder(View view) {
@@ -191,6 +197,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             itemShow = view.findViewById(R.id.itemShow);
             assignDboy = view.findViewById(R.id.assignDboy);
             dboy = view.findViewById(R.id.dboy);
+            trackOrder=view.findViewById(R.id.trackOrder);
         }
     }
 }

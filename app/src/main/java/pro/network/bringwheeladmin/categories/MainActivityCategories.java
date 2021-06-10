@@ -36,13 +36,15 @@ import pro.network.bringwheeladmin.app.AppController;
 import pro.network.bringwheeladmin.app.Appconfig;
 
 import static pro.network.bringwheeladmin.app.Appconfig.CATEGORIES_GET_ALL;
+import static pro.network.bringwheeladmin.app.Appconfig.CREATE_DELIVERYBOY;
+import static pro.network.bringwheeladmin.app.Appconfig.UPDATE_DELIVERYBOY;
 
 public class MainActivityCategories extends AppCompatActivity implements CategoriesClick {
-    private static final String TAG = pro.network.bringwheeladmin.categories.MainActivityCategories.class.getSimpleName();
+    private static final String TAG = MainActivityCategories.class.getSimpleName();
     ProgressDialog progressDialog;
     private RecyclerView recyclerView;
     private List<Categories> categoriesList;
-    private pro.network.bringwheeladmin.categories.CategoriesAdapter mAdapter;
+    private CategoriesAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

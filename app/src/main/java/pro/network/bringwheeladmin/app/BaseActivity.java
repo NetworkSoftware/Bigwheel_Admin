@@ -1,5 +1,6 @@
 package pro.network.bringwheeladmin.app;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,6 +17,7 @@ import static pro.network.bringwheeladmin.app.Appconfig.mypreference;
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected SharedPreferences sharedpreferences;
+    protected ProgressDialog pDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -23,6 +25,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         sharedpreferences = getSharedPreferences(mypreference,
                 Context.MODE_PRIVATE);
+        pDialog = new ProgressDialog(this);
+        pDialog.setCancelable(false);
 
         startDemo();
     }
@@ -50,5 +54,21 @@ public abstract class BaseActivity extends AppCompatActivity {
         finishAffinity();
     }
     protected abstract void startDemo();
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        hideDialog();
+    }
+
+    protected void showDialog() {
+        if (!pDialog.isShowing())
+            pDialog.show();
+    }
+
+    protected void hideDialog() {
+        if (pDialog!=null && pDialog.isShowing())
+            pDialog.dismiss();
+    }
 
 }

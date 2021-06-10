@@ -3,6 +3,7 @@ package pro.network.bringwheeladmin.app;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,16 +18,15 @@ import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -420,7 +420,7 @@ public class Imageutils
             items[0]="Gallery";
         }
 
-        android.app.AlertDialog.Builder alertdialog = new android.app.AlertDialog.Builder(current_activity);
+        AlertDialog.Builder alertdialog = new AlertDialog.Builder(current_activity);
         alertdialog.setTitle("Add Image");
         alertdialog.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -789,11 +789,8 @@ public class Imageutils
      */
 
 
-    public void createImage(Bitmap bitmap, String file_name, boolean file_replace)
+    public void createImage(Bitmap bitmap, String file_name, String filepath, boolean file_replace)
     {
-
-        String filepath = context.getExternalCacheDir().getPath()
-                + File.separator + "ImageAttach" + File.separator;
 
         path = new File(filepath);
 

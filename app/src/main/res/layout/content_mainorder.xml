@@ -50,6 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:backgroundTint="#86C689"
+                android:textColor="@color/black"
                 android:text="Load More" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

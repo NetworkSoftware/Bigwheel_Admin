@@ -47,6 +47,7 @@ import pro.network.bringwheeladmin.app.AndroidMultiPartEntity;
 import pro.network.bringwheeladmin.app.AppController;
 import pro.network.bringwheeladmin.app.Appconfig;
 import pro.network.bringwheeladmin.app.Imageutils;
+import pro.network.bringwheeladmin.deliveryboy.CreateDeliveryBoy;
 
 
 public class MainActivityAd extends AppCompatActivity implements Imageutils.ImageAttachmentListener, AdClick {
@@ -218,10 +219,11 @@ public class MainActivityAd extends AppCompatActivity implements Imageutils.Imag
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        imageutils.createImage(file, filename, false);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file, filename, path, false);
         progressDialog.setMessage("Uploading...");
         showDialog();
-        new UploadFileToServer().execute(Appconfig.compressImage(filename,getApplicationContext()));
+        new MainActivityAd.UploadFileToServer().execute(imageutils.getPath(uri) + "@" + from);
     }
 
     @Override

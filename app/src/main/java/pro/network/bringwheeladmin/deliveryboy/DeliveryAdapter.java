@@ -67,6 +67,20 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
                 onDeliveryBoy.onStatusClick(position, "inactive");
             }
         });
+
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDeliveryBoy.onEditClick(deliveryBean);
+            }
+        });
+        holder.delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onDeliveryBoy.onDeleteClick(position);
+            }
+        });
+
     }
 
     @Override
@@ -82,7 +96,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView user_name, phone, status;
         public ImageView license, aadhar, profile;
-        MaterialButton inactive, active;
+        MaterialButton inactive, active,edit,delete;
 
         public MyViewHolder(View view) {
             super(view);
@@ -94,6 +108,8 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
             active = view.findViewById(R.id.active);
             inactive = view.findViewById(R.id.inactive);
             status = view.findViewById(R.id.status);
+            edit = view.findViewById(R.id.edit);
+            delete = view.findViewById(R.id.delete);
 
         }
     }

@@ -76,8 +76,11 @@ public class Appconfig {
 
     //Wellet
     public static final String WALLET_GET_ALL = ip + "/get_all_wallet.php";
-    //Wellet
+    //DeliveryBoy
     public static final String DELIVERY_GET_ALL = ip + "/get_all_delivery.php";
+    public static final String CREATE_DELIVERYBOY = ip + "/delivery_register.php";
+    public static final String UPDATE_DELIVERYBOY = ip + "/update_deliveryboy.php";
+    public static final String DELETE_DELIVERYBOY = ip + "/delete_deliveryboy.php";
 
     public static final String IMAGE_URL = ip + "/images/";
     public static String URL_IMAGE_UPLOAD = ip + "/fileUpload.php";

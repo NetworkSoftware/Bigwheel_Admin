@@ -45,6 +45,7 @@ import pro.network.bringwheeladmin.app.AppController;
 import pro.network.bringwheeladmin.app.Appconfig;
 import pro.network.bringwheeladmin.app.GlideApp;
 import pro.network.bringwheeladmin.app.Imageutils;
+import pro.network.bringwheeladmin.deliveryboy.CreateDeliveryBoy;
 
 import static pro.network.bringwheeladmin.app.Appconfig.BANNERS_CREATE;
 
@@ -172,10 +173,11 @@ public class  BannerRegister extends AppCompatActivity implements Imageutils.Ima
 
     @Override
     public void image_attachment(int from, String filename, Bitmap file, Uri uri) {
-        imageutils.createImage(file, filename, false);
+        String path = Environment.getExternalStorageDirectory() + File.separator + "ImageAttach" + File.separator;
+        imageutils.createImage(file, filename, path, false);
         pDialog.setMessage("Uploading...");
         showDialog();
-        new UploadFileToServer().execute(Appconfig.compressImage(filename,getApplicationContext()));
+        new BannerRegister.UploadFileToServer().execute(imageutils.getPath(uri) + "@" + from);
     }
 
     private class UploadFileToServer extends AsyncTask<String, Integer, String> {
@@ -284,6 +286,7 @@ public class  BannerRegister extends AppCompatActivity implements Imageutils.Ima
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         imageutils.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
     }
 }

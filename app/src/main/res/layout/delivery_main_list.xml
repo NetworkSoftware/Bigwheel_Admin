@@ -28,7 +28,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:elevation="50dp"
             android:src="@drawable/ic_add_box_black"
-            android:tint="#fff"
+            app:tint="#fff"
             app:borderWidth="0dp"
             app:fabSize="normal" />
     </LinearLayout>

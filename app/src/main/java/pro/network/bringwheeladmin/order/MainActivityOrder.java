@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -65,6 +66,7 @@ import static pro.network.bringwheeladmin.app.Appconfig.ASSIGN_DBOY;
 import static pro.network.bringwheeladmin.app.Appconfig.DELIVERY_GET_ALL;
 import static pro.network.bringwheeladmin.app.Appconfig.ORDER_CHANGE_STATUS;
 import static pro.network.bringwheeladmin.app.Appconfig.ORDER_GET_ALL;
+import static pro.network.bringwheeladmin.app.Appconfig.mypreference;
 
 
 public class MainActivityOrder extends AppCompatActivity implements OrderAdapter.ContactsAdapterListener, StatusListener {
@@ -81,6 +83,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     private OrderAdapter deliverAdapter;
     private ArrayList<Order> deliveredList;
     private RecyclerView recycler_view_delivered;
+    SharedPreferences sharedpreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +91,8 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
         setContentView(R.layout.activity_mainorder);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        sharedpreferences = getSharedPreferences(mypreference,
+                Context.MODE_PRIVATE);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
@@ -265,6 +270,7 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
             protected Map<String, String> getParams() {
                 HashMap localHashMap = new HashMap();
                 localHashMap.put("offset", offset * 10 + "");
+                localHashMap.put("shopId", sharedpreferences.getString(Appconfig.shopIdKey, ""));
                 return localHashMap;
             }
         };
@@ -432,6 +438,13 @@ public class MainActivityOrder extends AppCompatActivity implements OrderAdapter
     public void onItemClick(Order order) {
         Intent intent = new Intent(MainActivityOrder.this, MyOrderPage.class);
         intent.putExtra("data", order);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onTrackOrder(String id) {
+        Intent intent=new Intent(MainActivityOrder.this,TimelineActivity.class);
+        intent.putExtra("id",id);
         startActivity(intent);
     }
 

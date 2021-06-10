@@ -7,6 +7,6 @@ public interface StatusListener {
     void onCallClick(String phone);
     void onCancelClick(Order order, String id);
     void onItemClick(Order order);
-
+    void onTrackOrder(String id);
     void assignDboy(Order order);
 }

@@ -47,7 +47,7 @@
         <activity
             android:name="pro.network.bringwheeladmin.StartActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppThemeNowhite">
+            android:theme="@style/AppThememat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -114,11 +114,18 @@
             android:label="Stock Register"
             android:theme="@style/AppThemeNoreg" />
         <activity
+            android:name="pro.network.bringwheeladmin.deliveryboy.CreateDeliveryBoy"
+            android:label="Delivery Boy Register"
+            android:theme="@style/AppThemeNoreg" />
+        <activity
             android:name="pro.network.bringwheeladmin.banner.BannerRegister"
             android:label="Banner Upload"
             android:theme="@style/AppThemeWhite" />
 
-
+        <activity
+            android:name="pro.network.bringwheeladmin.order.TimelineActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppThemeNoreg"/>
         <activity
             android:name="pro.network.bringwheeladmin.shop.StockRegister"
             android:label="Stock Register"
